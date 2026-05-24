@@ -156,28 +156,36 @@ int main(void)
       printf("decryptedData:%s\r\n", decryptedData);
       printf("\r\n");
 #else
-      switch (aesDmaState) {
-	  case AES_DMA_OFF:
+	switch (aesDmaState) {
+	case AES_DMA_OFF:
 		printf("\r\n");
 		printf("plaintext:%s\r\n", plaintext);
-		SecureComms_EncryptPayload_DMA((uint32_t*)plaintext,  sizeof(plaintext), (uint32_t*)cipherOutput);
+		SecureComms_EncryptPayload_DMA((uint32_t*) plaintext, sizeof(plaintext), (uint32_t*) cipherOutput);
 		break;
+	default:
+		break;
+	}
+
 #endif
 
     }
 
+
+
 #ifdef AES_VIA_DMA
-    switch (aesDmaState) {
-   	  case AES_DMA_ENCRYPTED:
+	switch (aesDmaState) {
+	case AES_DMA_ENCRYPTED:
 		printf("cipherOutput:%s\r\n", cipherOutput);
-		SecureComms_DecryptPayload_DMA((uint32_t*)cipherOutput, (uint32_t*)decryptedData, sizeof(decryptedData));
+		SecureComms_DecryptPayload_DMA((uint32_t*) cipherOutput, (uint32_t*) decryptedData, sizeof(decryptedData));
 		break;
-   	  case AES_DMA_DECRYPTED:
+	case AES_DMA_DECRYPTED:
 		printf("decryptedData:%s\r\n", decryptedData);
 		printf("\r\n");
-		aesDmaState=AES_DMA_OFF;
+		aesDmaState = AES_DMA_OFF;
 		break;
-         }
+	default:
+		break;
+	}
 #endif
 
 #ifdef RNG_VIA_INTERRUPT
