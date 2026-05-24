@@ -1,0 +1,4 @@
+../Drivers/STM32U0xx_HAL_Driver/Src/stm32u0xx_hal_cryp_ex.c:98:19:HAL_CRYPEx_AESGCM_GenerateAuthTAG	9
+../Drivers/STM32U0xx_HAL_Driver/Src/stm32u0xx_hal_cryp_ex.c:219:19:HAL_CRYPEx_AESCCM_GenerateAuthTAG	8
+../Drivers/STM32U0xx_HAL_Driver/Src/stm32u0xx_hal_cryp_ex.c:340:7:HAL_CRYPEx_EnableAutoKeyDerivation	2
+../Drivers/STM32U0xx_HAL_Driver/Src/stm32u0xx_hal_cryp_ex.c:356:7:HAL_CRYPEx_DisableAutoKeyDerivation	2
