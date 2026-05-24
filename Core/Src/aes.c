@@ -47,7 +47,7 @@ void MX_AES_Init(void) {
 	hcryp.Init.KeySize = CRYP_KEYSIZE_128B;
 	hcryp.Init.pKey = (uint32_t*) pKeyAES;
 	hcryp.Init.pInitVect = (uint32_t*) pInitVectAES;
-	hcryp.Init.Algorithm = CRYP_AES_CBC;
+	hcryp.Init.Algorithm = CRYP_AES_ECB;
 	hcryp.Init.DataWidthUnit = CRYP_DATAWIDTHUNIT_BYTE;
 	hcryp.Init.HeaderWidthUnit = CRYP_HEADERWIDTHUNIT_BYTE;
 	hcryp.Init.KeyIVConfigSkip = CRYP_KEYIVCONFIG_ALWAYS;
@@ -115,8 +115,10 @@ void SecureComms_DecryptPayload(uint32_t *input, uint32_t *output, uint16_t outp
 	 so the last generated block in AES hardware module is not used.
 	 It ensures that IV will be used and not the last block.
 	 */
-	HAL_CRYP_DeInit(&hcryp);
-	MX_AES_Init();
+	if (hcryp.Init.KeyIVConfigSkip != CRYP_KEYIVCONFIG_ALWAYS) {
+		HAL_CRYP_DeInit(&hcryp);
+		MX_AES_Init();
+	}
 
 	if (HAL_CRYP_Decrypt(&hcryp, input, outputSize, output, HAL_MAX_DELAY) != HAL_OK) {
 		Error_Handler();

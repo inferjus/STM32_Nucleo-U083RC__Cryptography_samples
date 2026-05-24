@@ -48,9 +48,9 @@ COM_InitTypeDef BspCOMInit;
 __IO uint32_t BspButtonState = BUTTON_RELEASED;
 
 /* USER CODE BEGIN PV */
-uint8_t plaintext[20] = "STM32U0 plaintext";
-uint8_t cipherOutput[20] = { 0 };
-uint8_t decryptedData[20] = { 0 };
+uint8_t plaintext[32] = "STM32U0 plaintext ";
+uint8_t cipherOutput[32] = { 0 };
+uint8_t decryptedData[32] = { 0 };
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
