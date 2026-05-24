@@ -141,7 +141,10 @@ int main(void)
       randomSeedReady = 0;
       Security_GetRandomSeed_IT();
 #endif
-      /* ..... Perform your action ..... */
+
+      SecureComms_EncryptPayload();
+      SecureComms_DecryptPayload();
+
     }
 
 #ifdef RNG_VIA_INTERRUPT

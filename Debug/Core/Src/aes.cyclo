@@ -1,3 +1,5 @@
-../Core/Src/aes.c:31:6:MX_AES_Init	2
-../Core/Src/aes.c:59:6:HAL_CRYP_MspInit	2
-../Core/Src/aes.c:79:6:HAL_CRYP_MspDeInit	2
+../Core/Src/aes.c:36:6:MX_AES_Init	2
+../Core/Src/aes.c:65:6:HAL_CRYP_MspInit	2
+../Core/Src/aes.c:85:6:HAL_CRYP_MspDeInit	2
+../Core/Src/aes.c:113:6:SecureComms_EncryptPayload	2
+../Core/Src/aes.c:122:6:SecureComms_DecryptPayload	2

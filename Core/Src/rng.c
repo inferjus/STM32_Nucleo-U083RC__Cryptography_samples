@@ -115,11 +115,10 @@ uint32_t Security_GetRandomSeed(void) {
 	uint32_t randomNumber = 0;
 
 	//blocking mode: waiting for DRDY flag
-	HAL_StatusTypeDef status = HAL_RNG_GenerateRandomNumber(&hrng,
-			&random_number);
+	HAL_StatusTypeDef status = HAL_RNG_GenerateRandomNumber(&hrng, &randomNumber);
 
 	if (status == HAL_OK) {
-		return random_number;
+		return randomNumber;
 	} else {
 		Error_Handler();
 		return 0;
@@ -135,6 +134,8 @@ uint32_t Security_GetRandomSeed_IT(void) {
 	if (status != HAL_OK) {
 		Error_Handler();
 	}
+
+	return status;
 }
 
 void HAL_RNG_ReadyDataCallback(RNG_HandleTypeDef *hrng, uint32_t random32bit) {

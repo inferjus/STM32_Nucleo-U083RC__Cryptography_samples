@@ -42,6 +42,9 @@ void MX_AES_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
+void SecureComms_EncryptPayload(void);
+void SecureComms_DecryptPayload(void);
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
