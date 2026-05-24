@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "aes.h"
+#include "dma.h"
 #include "rng.h"
 #include "gpio.h"
 
@@ -48,9 +49,10 @@ COM_InitTypeDef BspCOMInit;
 __IO uint32_t BspButtonState = BUTTON_RELEASED;
 
 /* USER CODE BEGIN PV */
-uint8_t plaintext[32] = "STM32U0 plaintext ";
-uint8_t cipherOutput[32] = { 0 };
-uint8_t decryptedData[32] = { 0 };
+#define AES_BUF_SIZE 32
+uint8_t plaintext[AES_BUF_SIZE] = "STM32U0 plaintext .";
+uint8_t cipherOutput[AES_BUF_SIZE] = { 0 };
+uint8_t decryptedData[AES_BUF_SIZE] = { 0 };
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -93,6 +95,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_AES_Init();
   MX_RNG_Init();
   /* USER CODE BEGIN 2 */
@@ -144,6 +147,7 @@ int main(void)
       Security_GetRandomSeed_IT();
 #endif
 
+#ifndef AES_VIA_DMA
       printf("\r\n");
       printf("plaintext:%s\r\n", plaintext);
       SecureComms_EncryptPayload((uint32_t *)plaintext, sizeof(plaintext), (uint32_t *)cipherOutput);
@@ -151,8 +155,30 @@ int main(void)
       SecureComms_DecryptPayload((uint32_t *)cipherOutput, (uint32_t *)decryptedData, sizeof(decryptedData));
       printf("decryptedData:%s\r\n", decryptedData);
       printf("\r\n");
+#else
+      switch (aesDmaState) {
+	  case AES_DMA_OFF:
+		printf("\r\n");
+		printf("plaintext:%s\r\n", plaintext);
+		SecureComms_EncryptPayload_DMA((uint32_t*)plaintext,  sizeof(plaintext), (uint32_t*)cipherOutput);
+		break;
+#endif
 
     }
+
+#ifdef AES_VIA_DMA
+    switch (aesDmaState) {
+   	  case AES_DMA_ENCRYPTED:
+		printf("cipherOutput:%s\r\n", cipherOutput);
+		SecureComms_DecryptPayload_DMA((uint32_t*)cipherOutput, (uint32_t*)decryptedData, sizeof(decryptedData));
+		break;
+   	  case AES_DMA_DECRYPTED:
+		printf("decryptedData:%s\r\n", decryptedData);
+		printf("\r\n");
+		aesDmaState=AES_DMA_OFF;
+		break;
+         }
+#endif
 
 #ifdef RNG_VIA_INTERRUPT
     if (randomSeedReady == 1) {
@@ -160,9 +186,8 @@ int main(void)
 	  printf("Wygenerowano seed: %lu\r\n", randomSeed);
 	  printf("\r\n\r\n");
 	}
-
-
 #endif
+
 
     /* USER CODE END WHILE */
 

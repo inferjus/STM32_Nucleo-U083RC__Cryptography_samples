@@ -1,9 +1,9 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file    aes.h
+  * @file    dma.h
   * @brief   This file contains all the function prototypes for
-  *          the aes.c file
+  *          the dma.c file
   ******************************************************************************
   * @attention
   *
@@ -18,8 +18,8 @@
   */
 /* USER CODE END Header */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __AES_H__
-#define __AES_H__
+#ifndef __DMA_H__
+#define __DMA_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,36 +28,19 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
+/* DMA memory to memory transfer handles -------------------------------------*/
+
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
 
-extern CRYP_HandleTypeDef hcryp;
-
 /* USER CODE BEGIN Private defines */
-
-#define AES_VIA_DMA
-
-typedef enum {
-	AES_DMA_OFF=0,
-	AES_DMA_ENCRYPTING,
-	AES_DMA_ENCRYPTED,
-	AES_DMA_DECRYPTING,
-	AES_DMA_DECRYPTED
-} aesDmaProgress_enum;
-
-extern volatile aesDmaProgress_enum aesDmaState;
 
 /* USER CODE END Private defines */
 
-void MX_AES_Init(void);
+void MX_DMA_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
-void SecureComms_EncryptPayload(uint32_t *input, uint16_t inputSize, uint32_t *output);
-void SecureComms_DecryptPayload(uint32_t *input, uint32_t *output, uint16_t outputSize);
-void SecureComms_EncryptPayload_DMA(uint32_t *input, uint16_t inputSize, uint32_t *output);
-void SecureComms_DecryptPayload_DMA(uint32_t *input, uint32_t *output, uint16_t outputSize);
 
 /* USER CODE END Prototypes */
 
@@ -65,5 +48,5 @@ void SecureComms_DecryptPayload_DMA(uint32_t *input, uint32_t *output, uint16_t 
 }
 #endif
 
-#endif /* __AES_H__ */
+#endif /* __DMA_H__ */
 
