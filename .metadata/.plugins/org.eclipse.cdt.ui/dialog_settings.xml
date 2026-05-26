@@ -8,6 +8,65 @@
 	<item key="org.eclipse.cdt.uiformatter_pagemodify_dialog.preferred_x" value="152"/>
 	<item key="org.eclipse.cdt.uiformatter_pagemodify_dialog.preferred_y" value="14"/>
 	<item key="org.eclipse.cdt.ui.codeformatter.savepath.loadpath" value="D:\Users\Nauka\STM32CubeIDE\STM32_Monorepo"/>
+	<item key="LastUsedSourceTemplate" value="Default C source template"/>
+	<item key="LastUsedHeaderTemplate" value="Default C header template"/>
 	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
+	</section>
+	<section name="completion_proposal_size">
+	</section>
+	<section name="PDOMSearchPage">
+		<item key="caseSensitive" value="false"/>
+		<item key="searchFlags" value="227191"/>
+		<list key="previousPatterns">
+			<item value="currentRngMode"/>
+			<item value="RNG_MODE_IDLE"/>
+			<item value="randomSeedReady"/>
+			<item value="hcryp?Init?pInitVect"/>
+			<item value="hcrypInitpInitVect"/>
+			<item value="pInitVect"/>
+			<item value="pInitVectAES"/>
+		</list>
+	</section>
+	<section name="NewSourceFileCreationWizard.dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="711"/>
+		<item key="DIALOG_Y_ORIGIN" value="600"/>
+		<item key="DIALOG_WIDTH" value="537"/>
+		<item key="DIALOG_HEIGHT" value="434"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+	<section name="NewHeaderFileCreationWizard.dialogBounds">
+		<item key="DIALOG_X_ORIGIN" value="522"/>
+		<item key="DIALOG_Y_ORIGIN" value="410"/>
+		<item key="DIALOG_WIDTH" value="537"/>
+		<item key="DIALOG_HEIGHT" value="434"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+	<section name="org.eclipse.cdt.ui.OPEN_ACTION_SELECTION_DIALOG_SECTION">
+		<item key="DIALOG_X_ORIGIN" value="591"/>
+		<item key="DIALOG_Y_ORIGIN" value="407"/>
+		<item key="DIALOG_WIDTH" value="398"/>
+		<item key="DIALOG_HEIGHT" value="438"/>
+		<item key="DIALOG_FONT_NAME" value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI"/>
+	</section>
+	<section name="org.eclipse.cdt.internal.ui.browser.opentype.OpenTypeActionSettings">
+		<item key="show_namespaces" value="true"/>
+		<item key="show_classes" value="true"/>
+		<item key="show_structs" value="true"/>
+		<item key="show_typedefs" value="true"/>
+		<item key="show_enums" value="true"/>
+		<item key="show_unions" value="true"/>
+		<item key="show_functions" value="true"/>
+		<item key="show_variables" value="true"/>
+		<item key="show_enumerators" value="true"/>
+		<item key="show_macros" value="true"/>
+		<item key="show_lowlevel" value="true"/>
+		<item key="x" value="501"/>
+		<item key="y" value="245"/>
+		<item key="width" value="565"/>
+		<item key="height" value="681"/>
+	</section>
+	<section name="RenameInformationPopup">
+	</section>
+	<section name="CRenameRefactoringInputPage">
 	</section>
 </section>

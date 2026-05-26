@@ -88,3 +88,53 @@ COM6
 
 !ENTRY org.eclipse.cdt.dsf 4 10005 2026-05-25 23:37:12.973
 !MESSAGE Request monitor: 'RequestMonitor (org.eclipse.cdt.dsf.mi.service.MIStack$5@73c3eb98): Status CANCEL: unknown code=1 ' resulted in a cancel status: Status CANCEL: unknown code=1 , even though the request is not set to cancel.
+
+!ENTRY org.eclipse.core.jobs 4 2 2026-05-26 00:16:28.607
+!MESSAGE An internal error occurred during: "Execute Debug Command".
+!STACK 0
+org.eclipse.core.runtime.AssertionFailedException: assertion failed: The application has not been initialized.
+	at org.eclipse.core.runtime.Assert.isTrue(Assert.java:119)
+	at org.eclipse.core.internal.runtime.InternalPlatform.assertInitialized(InternalPlatform.java:185)
+	at org.eclipse.core.internal.runtime.InternalPlatform.getAdapterManager(InternalPlatform.java:206)
+	at org.eclipse.core.runtime.Platform.getAdapterManager(Platform.java:661)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunch.getAdapter(GdbLaunch.java:454)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunch.disconnect(GdbLaunch.java:338)
+	at org.eclipse.debug.internal.core.commands.DisconnectCommand.execute(DisconnectCommand.java:35)
+	at org.eclipse.debug.internal.core.commands.ForEachCommand.doExecute(ForEachCommand.java:36)
+	at org.eclipse.debug.core.commands.AbstractDebugCommand$1.run(AbstractDebugCommand.java:215)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.core.jobs 2 2 2026-05-26 00:16:28.913
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: org.eclipse.cdt.dsf.gdb.internal.ui.console.GdbBasicCliConsole$InputReadJob RUNNING
+	 at java.base/java.lang.Object.wait0(Native Method)
+	 at java.base/java.lang.Object.wait(Object.java:366)
+	 at java.base/java.lang.Object.wait(Object.java:339)
+	 at org.eclipse.ui.console.IOConsoleInputStream.waitForData(IOConsoleInputStream.java:140)
+	 at org.eclipse.ui.console.IOConsoleInputStream.read(IOConsoleInputStream.java:91)
+	 at org.eclipse.ui.console.IOConsoleInputStream.read(IOConsoleInputStream.java:113)
+	 at org.eclipse.cdt.dsf.gdb.internal.ui.console.GdbBasicCliConsole$InputReadJob.run(GdbBasicCliConsole.java:248)
+	 at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+!SESSION 2026-05-26 19:05:33.073 -----------------------------------------------
+eclipse.buildId=Version 2.1.1
+java.version=21.0.9
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pl_PL
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-05-26 19:05:37.118
+!MESSAGE Log4j2 initialized with config file D:\Users\Nauka\STM32CubeIDE\STM32_Monorepo\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-05-26 19:05:47.039
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-05-26 19:05:52.713
+!MESSAGE Executed PowerShell command powershell.exe -Command "Get-CimInstance -ClassName Win32_SerialPort | Select-Object -ExpandProperty DeviceID":
+COM3
+COM4
+
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-05-26 19:05:52.714
+!MESSAGE port: COM3
+
+!ENTRY com.st.stm32cube.ide.mpu.remote.serial 1 1 2026-05-26 19:05:52.714
+!MESSAGE port: COM4
