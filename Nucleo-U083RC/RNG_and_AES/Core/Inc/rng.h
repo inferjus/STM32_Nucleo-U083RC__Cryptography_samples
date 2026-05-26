@@ -36,7 +36,7 @@ extern RNG_HandleTypeDef hrng;
 
 /* USER CODE BEGIN Private defines */
 
-#define RNG_VIA_INTERRUPT
+
 
 
 typedef enum {

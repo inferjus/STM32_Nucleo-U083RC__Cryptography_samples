@@ -6,6 +6,7 @@
 		<item value="randomVal"/>
 	</list>
 	<list key="searchhistory">
+		<item value="aesDmaState"/>
 		<item value="cipherOutput"/>
 		<item value="encryptPayload"/>
 		<item value="random_val"/>

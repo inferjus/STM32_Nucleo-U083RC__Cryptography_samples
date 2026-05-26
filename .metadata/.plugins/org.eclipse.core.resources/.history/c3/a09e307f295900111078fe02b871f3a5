@@ -1,0 +1,71 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file    aes.h
+  * @brief   This file contains all the function prototypes for
+  *          the aes.c file
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __AES_H__
+#define __AES_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
+
+extern CRYP_HandleTypeDef hcryp;
+
+/* USER CODE BEGIN Private defines */
+
+#define AES_VIA_DMA
+
+typedef enum {
+	AES_DMA_OFF=0,
+	AES_DMA_WAITING_FOR_IV,
+	AES_DMA_ENCRYPTING,
+	AES_DMA_ENCRYPTED,
+	AES_DMA_DECRYPTING,
+	AES_DMA_DECRYPTED
+} aesDmaProgress_enum;
+
+extern volatile aesDmaProgress_enum aesDmaState;
+extern uint32_t pInitVectAES[4];
+
+/* USER CODE END Private defines */
+
+void MX_AES_Init(void);
+
+/* USER CODE BEGIN Prototypes */
+
+void SecureComms_EncryptPayload(uint32_t *input, uint16_t inputSize, uint32_t *output);
+void SecureComms_DecryptPayload(uint32_t *input, uint32_t *output, uint16_t outputSize);
+void SecureComms_EncryptPayload_DMA(uint32_t *input, uint16_t inputSize, uint32_t *output);
+void SecureComms_DecryptPayload_DMA(uint32_t *input, uint32_t *output, uint16_t outputSize);
+
+/* USER CODE END Prototypes */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __AES_H__ */
+

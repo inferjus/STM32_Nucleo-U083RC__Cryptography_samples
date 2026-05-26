@@ -1,0 +1,34 @@
+/*
+ * rngForAes.h
+ *
+ *  Created on: 25 maj 2026
+ *      Author: Nauka
+ */
+
+#ifndef INC_RNGFORAES_H_
+#define INC_RNGFORAES_H_
+
+
+#include "rng.h"
+#include "aes.h"
+
+
+
+
+
+
+
+typedef struct {
+	uint32_t ivAes[sizeof(pInitVectAES)];
+	uint8_t generatingStage;
+	uint8_t ready;
+} RandomIv_t;
+
+extern RandomIv_t freshIv;
+
+
+void SecureComms_GenerateNewIV(void);
+HAL_StatusTypeDef SecureComms_GenerateNewIV_IT(void);
+
+
+#endif /* INC_RNGFORAES_H_ */

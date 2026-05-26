@@ -36,8 +36,6 @@ extern CRYP_HandleTypeDef hcryp;
 
 /* USER CODE BEGIN Private defines */
 
-#define AES_VIA_DMA
-
 typedef enum {
 	AES_DMA_OFF=0,
 	AES_DMA_WAITING_FOR_IV,

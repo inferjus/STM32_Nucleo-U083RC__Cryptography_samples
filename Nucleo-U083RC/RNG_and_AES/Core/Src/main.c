@@ -38,6 +38,9 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
+#define RNG_VIA_INTERRUPT
+#define AES_VIA_DMA
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -137,62 +140,56 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1) {
 
-    /* -- Sample board code for User push-button in interrupt mode ---- */
-    if (BspButtonState == BUTTON_PRESSED) {
-      /* Update button state */
-      BspButtonState = BUTTON_RELEASED;
-      /* -- Sample board code to toggle leds ---- */
-      BSP_LED_Toggle(LED_GREEN);
+    if (BspButtonState == BUTTON_PRESSED) { /* -- Sample board code for User push-button in interrupt mode ---- */
+
+      BspButtonState = BUTTON_RELEASED; /* Update button state */
+      BSP_LED_Toggle(LED_GREEN); /* -- Sample board code to toggle leds ---- */
 
 #ifndef RNG_VIA_INTERRUPT
       randomSeed=Security_GetRandomSeed();
 #else
-//      randomSeedReady = 0;
       currentRngMode = RNG_MODE_SEED;
       Security_GetRandomSeed_IT();
 #endif //RNG_VIA_INTERRUPT
 
+      printf("\r\nplaintext:%s\r\n", plaintext);
+
 #ifndef AES_VIA_DMA
-	printf("\r\n");
-	printf("plaintext:%s\r\n", plaintext);
-
-#ifndef RNG_VIA_INTERRUPT
-	printf("Previous IV: %08lX%08lX%08lX%08lX\r\n", hcryp.Init.pInitVect[0], hcryp.Init.pInitVect[1], hcryp.Init.pInitVect[2], hcryp.Init.pInitVect[3]);
-	SecureComms_GenerateNewIV(); //randomly generated IV
-	printf("New IV: %08lX%08lX%08lX%08lX\r\n", hcryp.Init.pInitVect[0], hcryp.Init.pInitVect[1], hcryp.Init.pInitVect[2], hcryp.Init.pInitVect[3]);
-#endif
-
-	SecureComms_EncryptPayload((uint32_t *)plaintext, sizeof(plaintext), (uint32_t *)cipherOutput);
-	printf("cipherOutput:%s\r\n", cipherOutput);
-	SecureComms_DecryptPayload((uint32_t *)cipherOutput, (uint32_t *)decryptedData, sizeof(decryptedData));
-	printf("decryptedData:%s\r\n", decryptedData);
-	printf("\r\n");
-#else
-	switch (aesDmaState) {
-	case AES_DMA_OFF:
-		printf("\r\n");
-		printf("plaintext:%s\r\n", plaintext);
 
 #ifndef RNG_VIA_INTERRUPT
 		printf("Previous IV: %08lX%08lX%08lX%08lX\r\n", hcryp.Init.pInitVect[0], hcryp.Init.pInitVect[1], hcryp.Init.pInitVect[2], hcryp.Init.pInitVect[3]);
 		SecureComms_GenerateNewIV(); //randomly generated IV
 		printf("New IV: %08lX%08lX%08lX%08lX\r\n", hcryp.Init.pInitVect[0], hcryp.Init.pInitVect[1], hcryp.Init.pInitVect[2], hcryp.Init.pInitVect[3]);
+#endif
+
+		SecureComms_EncryptPayload((uint32_t *)plaintext, sizeof(plaintext), (uint32_t *)cipherOutput);
+		printf("cipherOutput:%s\r\n", cipherOutput);
+		SecureComms_DecryptPayload((uint32_t *)cipherOutput, (uint32_t *)decryptedData, sizeof(decryptedData));
+		printf("decryptedData:%s\r\n", decryptedData);
+		printf("\r\n");
 #else
-		aesDmaState=AES_DMA_WAITING_FOR_IV;
-		printf("Previous IV: %08lX%08lX%08lX%08lX\r\n", hcryp.Init.pInitVect[0], hcryp.Init.pInitVect[1], hcryp.Init.pInitVect[2], hcryp.Init.pInitVect[3]);
-		currentRngMode = RNG_MODE_IV;
-		SecureComms_GenerateNewIV_IT();
-		break;
+		switch (aesDmaState) {
+		case AES_DMA_OFF:
+
+#ifndef RNG_VIA_INTERRUPT
+			printf("Previous IV: %08lX%08lX%08lX%08lX\r\n", hcryp.Init.pInitVect[0], hcryp.Init.pInitVect[1], hcryp.Init.pInitVect[2], hcryp.Init.pInitVect[3]);
+			SecureComms_GenerateNewIV(); //randomly generated IV
+			printf("New IV: %08lX%08lX%08lX%08lX\r\n", hcryp.Init.pInitVect[0], hcryp.Init.pInitVect[1], hcryp.Init.pInitVect[2], hcryp.Init.pInitVect[3]);
+#else
+			aesDmaState=AES_DMA_WAITING_FOR_IV;
+			printf("Previous IV: %08lX%08lX%08lX%08lX\r\n", hcryp.Init.pInitVect[0], hcryp.Init.pInitVect[1], hcryp.Init.pInitVect[2], hcryp.Init.pInitVect[3]);
+			currentRngMode = RNG_MODE_IV;
+			SecureComms_GenerateNewIV_IT();
+			break;
 #endif //RNG_VIA_INTERRUPT
 
-		SecureComms_EncryptPayload_DMA((uint32_t*) plaintext, sizeof(plaintext), (uint32_t*) cipherOutput);
-		break;
-	default:
-		break;
-	}
+			SecureComms_EncryptPayload_DMA((uint32_t*) plaintext, sizeof(plaintext), (uint32_t*) cipherOutput);
+			break;
+		default:
+			break;
+		}
 
 #endif //AES_VIA_DMA
-
     }
 
 
@@ -222,9 +219,9 @@ int main(void)
 
 #ifdef RNG_VIA_INTERRUPT
     if (randomSeedReady == 1) {
-	  randomSeedReady = 0;
-	  printf("Wygenerowano seed: %lu\r\n", randomSeed);
-	  printf("\r\n\r\n");
+		randomSeedReady = 0;
+		printf("Wygenerowano seed: %lu\r\n", randomSeed);
+		printf("\r\n\r\n");
 	}
 #endif //RNG_VIA_INTERRUPT
 

@@ -1,0 +1,70 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file    rng.h
+  * @brief   This file contains all the function prototypes for
+  *          the rng.c file
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2026 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __RNG_H__
+#define __RNG_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
+
+extern RNG_HandleTypeDef hrng;
+
+/* USER CODE BEGIN Private defines */
+
+#define RNG_VIA_INTERRUPT
+
+
+typedef enum {
+    RNG_MODE_IDLE,
+    RNG_MODE_SEED,
+    RNG_MODE_IV
+} RngMode_enum;
+
+
+extern volatile RngMode_enum currentRngMode;
+
+/* USER CODE END Private defines */
+
+void MX_RNG_Init(void);
+
+/* USER CODE BEGIN Prototypes */
+
+extern volatile uint32_t randomSeed;
+extern volatile uint8_t randomSeedReady;
+
+uint32_t Security_GetRandomSeed(void);
+HAL_StatusTypeDef Security_GetRandomSeed_IT(void);
+
+/* USER CODE END Prototypes */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __RNG_H__ */
+

@@ -155,7 +155,7 @@ void HAL_RNG_ReadyDataCallback(RNG_HandleTypeDef *hrng, uint32_t random32bit) {
 	            freshIv.generatingStage++;
 
 	            //generate next number if needed
-	            if (freshIv.generatingStage < 4) {
+	            if (freshIv.generatingStage < sizeof(pInitVectAES)) {
 	                HAL_RNG_GenerateRandomNumber_IT(hrng);
 	            }
 	            else {
